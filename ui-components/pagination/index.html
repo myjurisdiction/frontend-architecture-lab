@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offset based pagination</title>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 10px;
+        width: 100%;
+        background-color: aqua;
+      }
+      #items {
+        max-width: 24rem;
+        margin: 1rem auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button id="prev" type="button">Prev</button>
+      <p id="counter" aria-live="polite"></p>
+      <button id="next" type="button">Next</button>
+    </div>
+    <ul id="items"></ul>
+    <script>
+      const prevButton = document.getElementById("prev");
+      const nextButton = document.getElementById("next");
+      const counter = document.getElementById("counter");
+      const itemsList = document.getElementById("items");
+
+      // Five items per page gives 25 items across five pages.
+      const items = Array.from(
+        { length: 25 },
+        (_, index) => `Item ${index + 1}`,
+      );
+      const pageSize = 5;
+      let offset = 0;
+
+      function renderPage() {
+        const pageItems = items.slice(offset, offset + pageSize);
+        itemsList.replaceChildren(
+          ...pageItems.map((item) => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            return li;
+          }),
+        );
+
+        const currentPage = Math.floor(offset / pageSize) + 1;
+        const totalPages = Math.ceil(items.length / pageSize);
+        counter.textContent = `Page ${currentPage} of ${totalPages} (offset: ${offset})`;
+        prevButton.disabled = offset === 0;
+        nextButton.disabled = offset + pageSize >= items.length;
+      }
+
+      prevButton.addEventListener("click", () => {
+        offset = Math.max(0, offset - pageSize);
+        renderPage();
+      });
+
+      nextButton.addEventListener("click", () => {
+        offset = Math.min(
+          offset + pageSize,
+          Math.max(0, items.length - pageSize),
+        );
+        renderPage();
+      });
+
+      renderPage();
+    </script>
+  </body>
+</html>
