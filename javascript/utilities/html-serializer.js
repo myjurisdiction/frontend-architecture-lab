@@ -12,13 +12,13 @@
  */
 export default function serializeHTML(root) {
   function traverse(node, depth = 0) {
-    const indentation = "\t".repeat(depth);
+    let indentation = `\t`.repeat(depth);
 
+    // base case
     if (typeof node === "string") {
       return `${indentation}${node}`;
     }
 
-    // Each element contributes an opening tag, its serialized children, and a closing tag.
     return [
       `${indentation}<${node.tag.toLowerCase()}>`,
       ...node.children.map((child) => traverse(child, depth + 1)),
@@ -37,4 +37,4 @@ const tree = {
   ],
 };
 
-console.log(serializeHTML(tree), { depth: 5 });
+console.log(serializeHTML(tree));
