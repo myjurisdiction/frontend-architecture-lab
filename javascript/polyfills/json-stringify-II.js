@@ -67,7 +67,7 @@ function serializeValue(value, wsCache) {
 
   // console.log(date.toJSON()); -> stringified date
   // console.log(JSON.stringify(date)); -> same stringified date
-  if (typeof value.toJSON === "function") {
+  if (type === "object" && typeof value.toJSON === "function") {
     return serializeValue(value.toJSON(), wsCache);
   }
 
