@@ -25,6 +25,8 @@ For example, consider the text Hello World:
 
 Simplified Lexical node tree
 
+![alt text](image-8.png)
+
 Formatting is stored as node properties, rather than requiring nested HTML tags.
 
 Must know
@@ -104,29 +106,7 @@ Useful for advanced scenarios, but lower priority for your interviews.
 
 This is the most valuable architectural concept from the article.
 
-User performs an action
-
-Example: Types text or applies bold
-
-editor.update()
-
-Work with a mutable pending state
-
-Node transforms
-
-Normalize or transform changed nodes
-
-Commit + DOM reconciliation
-
-Apply changes to the editing surface
-
-Immutable EditorState snapshot
-
-Update listeners can observe the committed state
-
-[image](https://www.google.com/s2/favicons?domain=https://lexical.dev&sz=32)
-
-Lexical
+![alt text](image-9.png)
 
 ## 3. Final takeaway for your interview
 
